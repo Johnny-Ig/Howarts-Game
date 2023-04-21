@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Howarts Game</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- PANTALLA DE INICIO-->
+      <div id="pantalla-inicio" class="container">
+        <img src="./imagenes/logohowarts.png" width="1100" alt="Howarts" />
+        <button id="start-btn">Start!</button>
+      </div>
+
+      <!-- PANTALLA DONDE SE DESARROLLA EL JUEGO (CANVAS)-->
+      <canvas id="my-canvas" width="1200" height="600"></canvas>
+
+      <!-- PANTALLA DE GAME OVER-->
+      <div id="gameover-pantalla" class="container">
+        <img
+          src="./imagenes/gameover.png"
+          width="500"
+          alt="Gameover-Logo"
+        />
+        <button id="restart-btn">TRY AGAIN!</button>
+      </div>
+    </div>
+
+    <script src="./main.js"></script>
+    <script src="./game.js"></script>
+    <script src="./harry.js"></script>
+
+  </body>
+</html>

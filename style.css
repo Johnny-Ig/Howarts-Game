@@ -1,0 +1,41 @@
+body {
+  margin: 0;
+  background-image: url(https://fondosmil.com/fondo/23829.jpg);
+  background-size: cover;
+  
+}
+
+
+#my-canvas {
+  background-color: darkgray;
+}
+
+#start-btn,
+#restart-btn {
+  background-color: white;
+  color: blueviolet;
+  padding: 20px;
+  font-size: 20px;
+  margin-top: 40px;
+  border-radius: 10px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 50px;
+}
+
+#my-canvas, #gameover-pantalla {
+  display: none;
+}
+
+#pantalla-inicio img {
+border-image:30px  ;
+
+filter: contrast(5);
+filter: drop-shadow( 30px 30px 40px rgb(249, 3, 241));
+opacity: 1;
+}
