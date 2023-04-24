@@ -29,7 +29,12 @@ const startGame = () => {
 
 }
 
-
+const restartGame = () => {
+  gameoverPantallaDOM.style.display = "none"
+ canvas.style.display = "block"
+ gameObj = new Game()
+ gameObj.bucleGame()
+}
 
 
 
@@ -40,13 +45,15 @@ const startGame = () => {
 
 startBtnDOM.addEventListener("click",startGame )
 window.addEventListener("keydown", (event) => {
-    console.log("presionando", event.code)
-    if(event.code === "ArrowUp") {
+    
+    if(gameObj !== undefined && event.code === "ArrowUp") {
         gameObj.harryObj.movesUp() 
-        }    else if (event.code === "ArrowDown"){
+        }     if (gameObj !== undefined && event.code === "ArrowDown"){
             gameObj.harryObj.movesDown() 
         }
 
     
 })
+
+restartBtnDOM.addEventListener("click", restartGame)
 

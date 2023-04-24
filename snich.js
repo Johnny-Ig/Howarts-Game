@@ -1,25 +1,22 @@
-class Duendes {
+class Snich {
     constructor(positionY)  {
         // propiedades de cada duende
     this.img = new Image()
-    this.img.src = "imagenes/duende.png"
+    this.img.src = "imagenes/snich.png"
     this.x  = canvas.width
     this.y = positionY
     // deberia ser aleatorio
-    this.w = 100
-    this.h = 100
+    this.w = 60
+    this.h = 60
     this.speed = 5
-
     }
-// metodos (acciones) de los duendes
 
-   drawDuende = () => {
+drawSnich = () => {
     ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
    }
-    // los duendes se mueven hacia harry
 
-     move = () => {
-        this.x -= this.speed
-     }
-  
+   moveSnich = () => {
+    this.x -= this.speed
+ }
+
 }
