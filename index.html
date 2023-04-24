@@ -6,28 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Howarts Game</title>
     <link rel="stylesheet" href="./style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rye&display=swap" rel="stylesheet">
   </head>
   <body>
     <div class="container">
       <!-- PANTALLA DE INICIO-->
       <div id="pantalla-inicio" class="container">
-        <img src="./imagenes/logohowarts.png" width="1100" alt="Howarts" />
+        <img src="./imagenes/logohowarts.png" width="700" alt="Howarts" />
         <button id="start-btn">Start!</button>
       </div>
 
+       <h1 id="counter">SNITCH SCORE: </h1>
       <!-- PANTALLA DONDE SE DESARROLLA EL JUEGO (CANVAS)-->
-      <canvas id="my-canvas" width="1200" height="600"></canvas>
+      <canvas id="my-canvas" width="1000" height="485"></canvas>
+      
+      
 
       <!-- PANTALLA DE GAME OVER-->
       <div id="gameover-pantalla" class="container">
         <img
           src="./imagenes/gameover.png"
-          width="500"
+          width="250"
           alt="Gameover-Logo"
         />
         <button id="restart-btn">TRY AGAIN!</button>
       </div>
     </div>
+    <div id="instrucciones">
+      <h1>Instrucciones de Juego</h1>
+      <h3>Presiona las flechas para mover a Harry.</h3>
+      <h3>Esquiva a los duendes para no morir.</h3>
+      <h3>Recolecta 25 snitch para llegar al final Boss.</h3>
+      <h3>contra el final Boss lanza hechizos</h3>
+      <h3> en la barra espaciadora.</h3>
+    </div>
+
 
     <script src="./main.js"></script>
     <script src="./game.js"></script>

@@ -5,7 +5,9 @@ const gameoverPantallaDOM = document.querySelector("#gameover-pantalla");
 const startBtnDOM = document.querySelector("#start-btn");
 const restartBtnDOM = document.querySelector("#restart-btn");
 const canvas = document.querySelector("#my-canvas");
-
+const pauseBtnDOM = document.querySelector("#pause");
+let h1DOM = document.querySelector("#counter");
+const instruccionesDOM= document.querySelector("#instrucciones")
 const ctx = canvas.getContext("2d");
 
 let gameObj;
@@ -18,7 +20,8 @@ const startGame = () => {
  // 1. CAMBIAR LAS PANTALLAS DEL JUEGO
  pantallaInicioDOM.style.display = "none"
  canvas.style.display = "block"
-
+ instruccionesDOM.style.display = "none"
+ 
  // 2 CREAR LOS ELEMENTOS DEL JUEGO
    gameObj = new Game()
  console.log(gameObj)
@@ -32,6 +35,7 @@ const startGame = () => {
 const restartGame = () => {
   gameoverPantallaDOM.style.display = "none"
  canvas.style.display = "block"
+ instruccionesDOM.style.display= "none"
  gameObj = new Game()
  gameObj.bucleGame()
 }
@@ -54,6 +58,7 @@ window.addEventListener("keydown", (event) => {
 
     
 })
+
 
 restartBtnDOM.addEventListener("click", restartGame)
 

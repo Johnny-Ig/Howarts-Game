@@ -12,7 +12,9 @@ class Game {
     //snich
     this.snichArr = [];
     // el contador
+    this.snichPoints =  0;
     // boton de pausa
+   
   }
 
   // METODOS DE GAME => TODAS LAS ACCIONES QUE SE REALIZAN EN EL JUEGO
@@ -31,7 +33,7 @@ class Game {
   entradaDuendes = () => {
     if (
       this.duendesArr.length === 0 ||
-      this.duendesArr[this.duendesArr.length - 1].x < 900
+      this.duendesArr[this.duendesArr.length - 1].x < 800
     ) {
       let posicionRandom = Math.random() * 450;
       let newDuende = new Duendes(posicionRandom);
@@ -41,7 +43,7 @@ class Game {
   entradaSnich = () => {
     if (
       this.snichArr.length === 0 ||
-      this.snichArr[this.snichArr.length - 1].x < 800
+      this.snichArr[this.snichArr.length - 1].x < 700
     ) {
       let posicionRandomSnitch = Math.random() * 450;
       let newSnich = new Snich(posicionRandomSnitch);
@@ -51,13 +53,32 @@ class Game {
   colisionHarryDuendes = () => {
     this.duendesArr.forEach((cadaDuende) => {
       if (
-        cadaDuende.x < this.harryObj.x + this.harryObj.w &&
+        cadaDuende.x < this.harryObj.x + this.harryObj.w -60 &&
         cadaDuende.x + cadaDuende.w > this.harryObj.x &&
-        cadaDuende.y < this.harryObj.y + this.harryObj.h &&
-        cadaDuende.h + cadaDuende.y > this.harryObj.y
+        cadaDuende.y < this.harryObj.y + this.harryObj.h  &&
+        cadaDuende.h + cadaDuende.y > this.harryObj.y 
       ) {
         this.gameOver();
       }
+    });
+  };
+       removeSnich = () => {
+    this.snichArr.forEach((cadaSnich) => {
+      if (
+        cadaSnich.x < this.harryObj.x + this.harryObj.w -60 &&
+        cadaSnich.x + cadaSnich.w > this.harryObj.x &&
+        cadaSnich.y < this.harryObj.y + this.harryObj.h  &&
+        cadaSnich.h + cadaSnich.y > this.harryObj.y 
+      ) {
+        //return this.snichArr.shift() +  this.snichPoints+1
+        this.snichArr.shift()
+        this.snichPoints++ 
+        console.log(this.snichPoints)
+        h1DOM.innerText = "SNITCH POINTS: " +  this.snichPoints
+        if( this.snichPoints === 15){
+          h1DOM.innerText = "FINAL BOSS!!!"
+        }
+      } 
     });
   };
 
@@ -66,6 +87,7 @@ class Game {
 
     canvas.style.display = "none"
     gameoverPantallaDOM.style.display ="flex"
+    //h1DOM.style.display= "none"
 
   }
 
@@ -83,6 +105,7 @@ class Game {
     }
   }
 
+  
 
 
   bucleGame = () => {
@@ -98,7 +121,8 @@ class Game {
     this.removeDuendes()
     this.snichArr.forEach((cadaSnich) => {
       cadaSnich.moveSnich();
-
+      this.removeSnich()
+      
      })
     
 
@@ -114,6 +138,7 @@ class Game {
     this.duendesArr.forEach((cadaDuende) => {
       cadaDuende.drawDuende();
     });
+    
     
     
     // recursion (requestAnimationFrame)

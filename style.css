@@ -2,12 +2,12 @@ body {
   margin: 0;
   background-image: url(https://fondosmil.com/fondo/23829.jpg);
   background-size: cover;
-  
 }
-
 
 #my-canvas {
   background-color: darkgray;
+  color: red;
+  font-family: "Rye", cursive;
 }
 
 #start-btn,
@@ -15,7 +15,7 @@ body {
   background-color: white;
   color: blueviolet;
   padding: 20px;
-  font-size: 20px;
+  font-size: 15px;
   margin-top: 40px;
   border-radius: 10px;
 }
@@ -28,14 +28,37 @@ body {
   margin: 50px;
 }
 
-#my-canvas, #gameover-pantalla {
+#my-canvas,
+#gameover-pantalla {
   display: none;
 }
 
 #pantalla-inicio img {
-border-image:30px  ;
+  
+  border-image: 30px;
 
-filter: contrast(5);
-filter: drop-shadow( 30px 30px 40px rgb(249, 3, 241));
-opacity: 1;
+  filter: contrast(5);
+  filter: drop-shadow(30px 30px 40px rgb(249, 3, 241));
+  opacity: 1;
+}
+
+#counter {
+  color: rgb(168, 168, 197);
+  font-family: "Rye", cursive;
+}
+#instrucciones {
+  font-family: "Rye", cursive;
+  font-size: 15px;
+  color: rgb(231, 247, 7);
+  position: absolute;
+  top: 300px;
+  left: 40px;
+
+  border-radius: 20px;
+  margin: 10px;
+  text-decoration: underline;
+
+  backdrop-filter: opacity(10%);
+  filter: drop-shadow(70px 70px 80px rgb(249, 3, 241));
+  
 }

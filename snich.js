@@ -6,8 +6,8 @@ class Snich {
     this.x  = canvas.width
     this.y = positionY
     // deberia ser aleatorio
-    this.w = 60
-    this.h = 60
+    this.w = 55
+    this.h = 55
     this.speed = 5
     }
 

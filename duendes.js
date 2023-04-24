@@ -6,8 +6,8 @@ class Duendes {
     this.x  = canvas.width
     this.y = positionY
     // deberia ser aleatorio
-    this.w = 100
-    this.h = 100
+    this.w = 70
+    this.h = 70
     this.speed = 5
 
     }
