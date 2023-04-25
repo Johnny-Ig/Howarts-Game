@@ -25,6 +25,7 @@ const startGame = () => {
  // 2 CREAR LOS ELEMENTOS DEL JUEGO
    gameObj = new Game()
  console.log(gameObj)
+  gameObj.musica()
 
  // 3. INICIAR EL BUCLE DEL JUEGO (RECURSION)
 

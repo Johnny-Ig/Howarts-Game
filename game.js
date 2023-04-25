@@ -13,7 +13,7 @@ class Game {
     this.snichArr = [];
     // el contador
     this.snichPoints = 0;
-    
+    this.voldemortObj;
   }
 
   // METODOS DE GAME => TODAS LAS ACCIONES QUE SE REALIZAN EN EL JUEGO
@@ -25,6 +25,11 @@ class Game {
   //colisiones de harry contra los duendes
 
   //se termina el juego
+  musica = () => {
+    const audio = new Audio("SnapSave.io - Harry Potter Theme Song (128 kbps).mp3");
+audio.play();
+  audio.volume= 0.5;
+  };
 
   entradaDuendes = () => {
     if (
@@ -45,7 +50,6 @@ class Game {
       let newSnich = new Snich(posicionRandomSnitch);
       this.snichArr.push(newSnich);
     }
-     
   };
   colisionHarryDuendes = () => {
     this.duendesArr.forEach((cadaDuende) => {
@@ -67,7 +71,7 @@ class Game {
         cadaSnich.y < this.harryObj.y + this.harryObj.h &&
         cadaSnich.h + cadaSnich.y > this.harryObj.y
       ) {
-        //return this.snichArr.shift() +  this.snichPoints+1
+       
         this.snichArr.shift();
         this.snichPoints++;
         console.log(this.snichPoints);
@@ -80,13 +84,12 @@ class Game {
   };
 
   voldemort = () => {
-    if (this.snichPoints === 1){
-      this.voldemortObj = new Voldemort()
-      this.voldemortObj.voldemortDraw()
-      this.voldemortObj.moveVoldemort()
-    }
+    if (this.snichPoints === 1 && !this.voldemortObj) {
+      this.voldemortObj = new Voldemort();
+    console.log("creando a voldemort")
+      }
 
-  }
+  };
 
   gameOver = () => {
     this.isGameOn = false;
@@ -107,22 +110,23 @@ class Game {
   removeDuendes = () => {
     if (this.duendesArr[0].x + this.duendesArr[0].w < 0) {
       this.duendesArr.shift();
-    } 
-    if(this.snichPoints === 1){
-      for(let i = 0; i< this.duendesArr.length; i++){
-        this.duendesArr.splice(0)
+    }
+    if (this.snichPoints === 1) {
+      for (let i = 0; i < this.duendesArr.length; i++) {
+        this.duendesArr.splice(0);
       }
-     }
+    }
   };
 
   eliminandoSnich = () => {
     if (this.snichArr[0].x + this.snichArr[0].w < 0) {
       this.snichArr.shift();
-    }  if(this.snichPoints === 1){
-      for(let i = 0; i< this.snichArr.length; i++){
-        this.snichArr.splice(0)
+    }
+    if (this.snichPoints === 1) {
+      for (let i = 0; i < this.snichArr.length; i++) {
+        this.snichArr.splice(0);
       }
-     }
+    }
   };
 
   bucleGame = () => {
@@ -140,14 +144,22 @@ class Game {
     this.snichArr.forEach((cadaSnich) => {
       cadaSnich.moveSnich();
       this.removeSnich();
-      
     });
-
+    this.voldemort();
+    if (this.voldemortObj !== undefined) {
+      this.voldemortObj.moveVoldemort();
+      
+    }
+      //this.musica()
     // 3 dibujado de los elemetos
 
     this.dibujarfondo();
     this.harryObj.harryDraw();
-    this.voldemort()
+    if (this.voldemortObj !== undefined){
+      this.voldemortObj.voldemortDraw();
+
+    }
+
     this.snichArr.forEach((cadaSnich) => {
       cadaSnich.drawSnich();
     });
@@ -155,7 +167,6 @@ class Game {
       cadaDuende.drawDuende();
     });
     
-
     // recursion (requestAnimationFrame)
     if (this.isGameOn === true) {
       requestAnimationFrame(this.bucleGame);
