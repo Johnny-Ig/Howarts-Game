@@ -12,9 +12,8 @@ class Game {
     //snich
     this.snichArr = [];
     // el contador
-    this.snichPoints =  0;
-    // boton de pausa
-   
+    this.snichPoints = 0;
+    
   }
 
   // METODOS DE GAME => TODAS LAS ACCIONES QUE SE REALIZAN EN EL JUEGO
@@ -24,18 +23,15 @@ class Game {
   //que harry se mueva de arriba a abajo
   //el contador aumento
   //colisiones de harry contra los duendes
-  
-  //se termina el juego
- 
-  
 
+  //se termina el juego
 
   entradaDuendes = () => {
     if (
       this.duendesArr.length === 0 ||
       this.duendesArr[this.duendesArr.length - 1].x < 800
     ) {
-      let posicionRandom = Math.random() * 450;
+      let posicionRandom = Math.random() * 380;
       let newDuende = new Duendes(posicionRandom);
       this.duendesArr.push(newDuende);
     }
@@ -45,72 +41,93 @@ class Game {
       this.snichArr.length === 0 ||
       this.snichArr[this.snichArr.length - 1].x < 700
     ) {
-      let posicionRandomSnitch = Math.random() * 450;
+      let posicionRandomSnitch = Math.random() * 380;
       let newSnich = new Snich(posicionRandomSnitch);
       this.snichArr.push(newSnich);
     }
+     
   };
   colisionHarryDuendes = () => {
     this.duendesArr.forEach((cadaDuende) => {
       if (
-        cadaDuende.x < this.harryObj.x + this.harryObj.w -60 &&
+        cadaDuende.x < this.harryObj.x + this.harryObj.w - 60 &&
         cadaDuende.x + cadaDuende.w > this.harryObj.x &&
-        cadaDuende.y < this.harryObj.y + this.harryObj.h  &&
-        cadaDuende.h + cadaDuende.y > this.harryObj.y 
+        cadaDuende.y < this.harryObj.y + this.harryObj.h &&
+        cadaDuende.h + cadaDuende.y > this.harryObj.y
       ) {
         this.gameOver();
       }
     });
   };
-       removeSnich = () => {
+  removeSnich = () => {
     this.snichArr.forEach((cadaSnich) => {
       if (
-        cadaSnich.x < this.harryObj.x + this.harryObj.w -60 &&
+        cadaSnich.x < this.harryObj.x + this.harryObj.w - 60 &&
         cadaSnich.x + cadaSnich.w > this.harryObj.x &&
-        cadaSnich.y < this.harryObj.y + this.harryObj.h  &&
-        cadaSnich.h + cadaSnich.y > this.harryObj.y 
+        cadaSnich.y < this.harryObj.y + this.harryObj.h &&
+        cadaSnich.h + cadaSnich.y > this.harryObj.y
       ) {
         //return this.snichArr.shift() +  this.snichPoints+1
-        this.snichArr.shift()
-        this.snichPoints++ 
-        console.log(this.snichPoints)
-        h1DOM.innerText = "SNITCH POINTS: " +  this.snichPoints
-        if( this.snichPoints === 15){
-          h1DOM.innerText = "FINAL BOSS!!!"
+        this.snichArr.shift();
+        this.snichPoints++;
+        console.log(this.snichPoints);
+        h1DOM.innerText = "SNITCH POINTS: " + this.snichPoints;
+        if (this.snichPoints === 1) {
+          h1DOM.innerText = "FINAL BOSS!!!";
         }
-      } 
+      }
     });
   };
+
+  voldemort = () => {
+    if (this.snichPoints === 1){
+      this.voldemortObj = new Voldemort()
+      this.voldemortObj.voldemortDraw()
+      this.voldemortObj.moveVoldemort()
+    }
+
+  }
 
   gameOver = () => {
     this.isGameOn = false;
 
-    canvas.style.display = "none"
-    gameoverPantallaDOM.style.display ="flex"
+    canvas.style.display = "none";
+    gameoverPantallaDOM.style.display = "flex";
     //h1DOM.style.display= "none"
-
-  }
+  };
 
   dibujarfondo = () => {
     ctx.drawImage(this.fondoGame, 0, 0, canvas.clientWidth, canvas.height);
   };
 
-  limpiezaCanvas = () =>{
-    ctx.clearRect(0, 0, canvas.clientWidth, canvas.height)
-  }
+  limpiezaCanvas = () => {
+    ctx.clearRect(0, 0, canvas.clientWidth, canvas.height);
+  };
 
   removeDuendes = () => {
-    if(this.duendesArr[0].x + this.duendesArr[0].w <0) {
-      this.duendesArr.shift()
-    }
-  }
+    if (this.duendesArr[0].x + this.duendesArr[0].w < 0) {
+      this.duendesArr.shift();
+    } 
+    if(this.snichPoints === 1){
+      for(let i = 0; i< this.duendesArr.length; i++){
+        this.duendesArr.splice(0)
+      }
+     }
+  };
 
-  
-
+  eliminandoSnich = () => {
+    if (this.snichArr[0].x + this.snichArr[0].w < 0) {
+      this.snichArr.shift();
+    }  if(this.snichPoints === 1){
+      for(let i = 0; i< this.snichArr.length; i++){
+        this.snichArr.splice(0)
+      }
+     }
+  };
 
   bucleGame = () => {
     //1 limpieza del canvas
-      this.limpiezaCanvas()
+    this.limpiezaCanvas();
     //2 acciones y movimientos de los elementos
     this.entradaDuendes();
     this.entradaSnich();
@@ -118,20 +135,19 @@ class Game {
       cadaDuende.move();
       this.colisionHarryDuendes();
     });
-    this.removeDuendes()
+    this.removeDuendes();
+    this.eliminandoSnich();
     this.snichArr.forEach((cadaSnich) => {
       cadaSnich.moveSnich();
-      this.removeSnich()
+      this.removeSnich();
       
-     })
-    
-
-
+    });
 
     // 3 dibujado de los elemetos
 
     this.dibujarfondo();
     this.harryObj.harryDraw();
+    this.voldemort()
     this.snichArr.forEach((cadaSnich) => {
       cadaSnich.drawSnich();
     });
@@ -139,11 +155,10 @@ class Game {
       cadaDuende.drawDuende();
     });
     
-    
-    
+
     // recursion (requestAnimationFrame)
-    if(this.isGameOn === true) {
-    requestAnimationFrame(this.bucleGame)
+    if (this.isGameOn === true) {
+      requestAnimationFrame(this.bucleGame);
     }
   };
 }
