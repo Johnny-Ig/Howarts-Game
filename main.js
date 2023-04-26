@@ -6,7 +6,7 @@ const startBtnDOM = document.querySelector("#start-btn");
 const restartBtnDOM = document.querySelector("#restart-btn");
 const canvas = document.querySelector("#my-canvas");
 const pauseBtnDOM = document.querySelector("#pause");
-let h1DOM = document.querySelector("#counter");
+const h1DOM = document.querySelector("#counter");
 const instruccionesDOM= document.querySelector("#instrucciones")
 const ctx = canvas.getContext("2d");
 
