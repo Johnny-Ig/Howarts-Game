@@ -29,4 +29,5 @@ class Harry {
       this.y += this.move;
     }
   };
+
 }

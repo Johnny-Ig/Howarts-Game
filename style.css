@@ -11,7 +11,7 @@ body {
 }
 
 #start-btn,
-#restart-btn {
+#restart-btn, #Play-again {
   background-color: white;
   color: blueviolet;
   padding: 20px;
@@ -29,7 +29,7 @@ body {
 }
 
 #my-canvas,
-#gameover-pantalla {
+#gameover-pantalla, #win-pantalla {
   display: none;
 }
 

@@ -8,6 +8,8 @@ const canvas = document.querySelector("#my-canvas");
 const pauseBtnDOM = document.querySelector("#pause");
 const h1DOM = document.querySelector("#counter");
 const instruccionesDOM= document.querySelector("#instrucciones")
+const newGameDOM = document.querySelector("#win-pantalla")
+const playAgainBtn = document.querySelector("#Play-again")
 const ctx = canvas.getContext("2d");
 
 let gameObj;
@@ -41,6 +43,13 @@ const restartGame = () => {
  gameObj.bucleGame()
 }
 
+const newGame = () => {
+  newGameDOM.style.display = "none"
+ canvas.style.display = "block"
+ instruccionesDOM.style.display= "none"
+ gameObj = new Game()
+ gameObj.bucleGame()
+}
 
 
 
@@ -60,6 +69,12 @@ window.addEventListener("keydown", (event) => {
     
 })
 
+window.addEventListener("keydown", (event) => {
+  if(gameObj !== undefined && event.code === "Space"){
+    gameObj.hechizoHarry()
+  }
+})
+
 
 restartBtnDOM.addEventListener("click", restartGame)
-
+playAgainBtn.addEventListener("click",newGame )
