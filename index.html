@@ -6,9 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Howarts Game</title>
     <link rel="stylesheet" href="./style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rye&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rye&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="container">
@@ -18,33 +21,20 @@
         <button id="start-btn">Start!</button>
       </div>
 
-       <h1 id="counter">SNITCH SCORE: </h1>
+      <h1 id="counter">SNITCH SCORE:</h1>
       <!-- PANTALLA DONDE SE DESARROLLA EL JUEGO (CANVAS)-->
       <canvas id="my-canvas" width="1000" height="485"></canvas>
-      
-      
 
       <!-- PANTALLA DE GAME OVER-->
       <div id="gameover-pantalla" class="container">
-        <img
-          src="./imagenes/gameover.png"
-          width="250"
-          alt="Gameover-Logo"
-        />
+        <img src="./imagenes/gameover.png" width="250" alt="Gameover-Logo" />
         <button id="restart-btn">TRY AGAIN!</button>
       </div>
 
       <div id="win-pantalla" class="container">
-        
-        <img
-          src="imagenes/copaquidich.png"
-          width="250"
-          alt="Win-Logo"
-        />
+        <img src="imagenes/copaquidich.png" width="250" alt="Win-Logo" />
         <button id="Play-again">PLAY AGAIN!</button>
       </div>
-
-
     </div>
     <div id="instrucciones">
       <h1>Instrucciones de Juego</h1>
@@ -52,10 +42,8 @@
       <h3>Esquiva a los duendes para no morir.</h3>
       <h3>Recolecta 25 snitch para llegar al final Boss.</h3>
       <h3>contra el final Boss lanza hechizos</h3>
-      <h3> en la barra espaciadora.</h3>
+      <h3>en la barra espaciadora.</h3>
     </div>
-    
-
 
     <script src="./main.js"></script>
     <script src="./game.js"></script>

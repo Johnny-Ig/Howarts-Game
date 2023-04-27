@@ -1,18 +1,13 @@
 class Harry {
   constructor() {
-    // propiedades de harry
     this.img = new Image();
     this.img.src = "imagenes/harryReal.png";
     this.x = 40;
     this.y = canvas.height / 2;
-    this.w = 95; //ancho de harry
-    this.h = 95; // alto del harry
+    this.w = 95;
+    this.h = 95;
     this.move = 30;
   }
-
-  // metodos (acciones) del harry
-
-  //DIBUJAR A HARRY
 
   harryDraw = () => {
     ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
@@ -20,7 +15,6 @@ class Harry {
 
   movesUp = () => {
     if (this.y > 2) {
-      // que no salte mas del techo
       this.y -= this.move;
     }
   };
@@ -29,5 +23,4 @@ class Harry {
       this.y += this.move;
     }
   };
-
 }

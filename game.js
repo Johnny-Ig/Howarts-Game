@@ -1,42 +1,27 @@
 class Game {
   constructor() {
-    //PPROPIEDADES DE GAME => TODOS LOS ELEMENTOS QUE EXISTEN EN EL JUEGO
-    //el fondo
     this.fondoGame = new Image();
     this.fondoGame.src = "imagenes/castillo.jpg";
     this.isGameOn = true;
-    // duendes
     this.duendesArr = [];
-    //harrypotter
     this.harryObj = new Harry();
-    //snich
     this.snichArr = [];
-    // el contador
     this.snichPoints = 0;
     this.voldemortObj;
-   
     this.hechizoVolArr = [];
     this.isVoldisparando = true;
-
-    this.hechizoHarryArr= [];
+    this.hechizoHarryArr = [];
     this.isHarryDisparando = true;
+    this.counterContraVoldemort = 5;
+    this.counterContraHarry = 5;
   }
 
-  // METODOS DE GAME => TODAS LAS ACCIONES QUE SE REALIZAN EN EL JUEGO
-
-  // aparecen los duendes en diferentes distancias (math.randon)
-  // los duendes se mueven hacia harry
-  //que harry se mueva de arriba a abajo
-  //el contador aumento
-  //colisiones de harry contra los duendes
-
-  //se termina el juego
   musica = () => {
     const audio = new Audio(
       "SnapSave.io - Harry Potter Theme Song (128 kbps).mp3"
     );
     audio.play();
-    audio.volume = 0.5;
+    audio.volume = 0.2;
   };
 
   entradaDuendes = () => {
@@ -81,7 +66,7 @@ class Game {
       ) {
         this.snichArr.shift();
         this.snichPoints++;
-        console.log(this.snichPoints);
+
         h1DOM.innerText = "SNITCH POINTS: " + this.snichPoints;
         if (this.snichPoints === 5) {
           h1DOM.innerText = "FINAL BOSS!!!";
@@ -93,22 +78,19 @@ class Game {
   voldemort = () => {
     if (this.snichPoints === 5 && !this.voldemortObj) {
       this.voldemortObj = new Voldemort();
-      console.log("creando a voldemort");
-      
     }
   };
 
   hechizoVoldemort = () => {
-    if (this.isVoldisparando === true ) {
-      let hechizoVolObj = new Hechizos(800, 400);
+    if (
+      this.hechizoVolArr.length === 0 ||
+      this.hechizoVolArr[this.hechizoVolArr.length - 1].x < 600
+    ) {
+      let hechizoVolObj = new Hechizos(
+        this.voldemortObj.x,
+        this.voldemortObj.y
+      );
       this.hechizoVolArr.push(hechizoVolObj);
-      this.isVoldisparando = false;
-    }
-    else if(this.isVoldisparando = false || this.hechizoVolArr[this.hechizoVolArr.length - 1].x < 450){
-      
-      let hechizoVolObj = new Hechizos(this.voldemortObj.x, this.voldemortObj.y);
-      this.hechizoVolArr.push(hechizoVolObj);
-      this.isVoldisparando = true;
     }
   };
 
@@ -120,44 +102,63 @@ class Game {
         cadaHechizo.y < this.harryObj.y + this.harryObj.h &&
         cadaHechizo.h + cadaHechizo.y > this.harryObj.y
       ) {
-        this.gameOver();
+        this.hechizoVolArr.shift();
+
+        this.counterContraHarry--;
+      }
+      if (
+        this.hechizoVolArr.indexOf(0).x + this.hechizoVolArr.indexOf(0).w <
+        0
+      ) {
+        this.hechizoVolArr.shift();
       }
     });
   };
 
-   hechizoHarry = () => {
-     if(this.snichPoints === 5){
-      let hechizoHarryObj = new HechizosHarry(this.harryObj.x + 60, this.harryObj.y);
-      //this.hechizoHarryArr[this.hechizoHarryArr.length - 1].x < 100
-      this.hechizoHarryArr.push(hechizoHarryObj);
-     }
-    }
+  hechizoHarry = () => {
+    if (this.snichPoints === 5) {
+      let hechizoHarryObj = new HechizosHarry(
+        this.harryObj.x + 60,
+        this.harryObj.y
+      );
 
-    colisionVoldemortHechizos = () => {
-      this.hechizoHarryArr.forEach((cadaHechizo) => {
-        if (
-          cadaHechizo.x < this.voldemortObj.x + this.voldemortObj.w +60 &&
-          cadaHechizo.x + cadaHechizo.w > this.voldemortObj.x &&
-          cadaHechizo.y < this.voldemortObj.y + this.voldemortObj.h &&
-          cadaHechizo.h + cadaHechizo.y > this.voldemortObj.y
-        ) {
-          this.winGame();
-        }
-      });
+      this.hechizoHarryArr.push(hechizoHarryObj);
     }
-   winGame = () => {
+  };
+
+  colisionVoldemortHechizos = () => {
+    this.hechizoHarryArr.forEach((cadaHechizo) => {
+      if (
+        cadaHechizo.x < this.voldemortObj.x + this.voldemortObj.w + 60 &&
+        cadaHechizo.x + cadaHechizo.w > this.voldemortObj.x &&
+        cadaHechizo.y < this.voldemortObj.y + this.voldemortObj.h &&
+        cadaHechizo.h + cadaHechizo.y > this.voldemortObj.y
+      ) {
+        this.hechizoHarryArr.shift();
+        this.counterContraVoldemort--;
+      }
+    });
+  };
+
+  counterColision = () => {
+    if (this.counterContraVoldemort <= 0) {
+      this.winGame();
+    } else if (this.counterContraHarry <= 0) {
+      this.gameOver();
+    }
+  };
+  winGame = () => {
     this.isGameOn = false;
     canvas.style.display = "none";
     newGameDOM.style.display = "flex";
     h1DOM.style.display = "none";
-   }
- 
+  };
+
   gameOver = () => {
     this.isGameOn = false;
 
     canvas.style.display = "none";
     gameoverPantallaDOM.style.display = "flex";
-    
   };
 
   dibujarfondo = () => {
@@ -169,8 +170,11 @@ class Game {
   };
 
   removeDuendes = () => {
-    if (this.duendesArr[0].x + this.duendesArr[0].w < 0) {
-      this.duendesArr.shift();
+    if (
+      this.snichArr.length !== 0 &&
+      this.duendesArr.length.x + this.duendesArr.length.w < 0
+    ) {
+      this.duendesArr.splice(0, 1);
     }
     if (this.snichPoints === 5) {
       for (let i = 0; i < this.duendesArr.length; i++) {
@@ -190,10 +194,29 @@ class Game {
     }
   };
 
+  drawScoreVoldemort = () => {
+    if (this.snichPoints === 5) {
+      ctx.font = "18px Arial";
+      ctx.fillText(
+        "VOLDEMORT LIFE:" + this.counterContraVoldemort,
+        canvas.width - 180,
+        20
+      );
+      ctx.fillStyle = "red";
+    }
+  };
+
+  drawScoreHarry = () => {
+    if (this.snichPoints === 5) {
+      ctx.font = "18px Arial";
+      ctx.fillText("HARRY LIVE:" + this.counterContraHarry, 20, 20);
+      ctx.fillStyle = "red";
+    }
+  };
+
   bucleGame = () => {
-    //1 limpieza del canvas
     this.limpiezaCanvas();
-    //2 acciones y movimientos de los elementos
+
     this.entradaDuendes();
     this.entradaSnich();
     this.duendesArr.forEach((cadaDuende) => {
@@ -220,19 +243,20 @@ class Game {
         cadaHechizo.moveHechizo();
       });
     }
-    this.colisionHarryHechizos()
+
     if (this.hechizoHarryArr.length !== 0) {
       this.hechizoHarryArr.forEach((cadaHechizo) => {
         cadaHechizo.moveHechizoHarry();
       });
     }
-    this.colisionVoldemortHechizos()
+    this.colisionHarryHechizos();
+    this.colisionVoldemortHechizos();
+    this.counterColision();
 
     this.dibujarfondo();
     this.harryObj.harryDraw();
     if (this.voldemortObj !== undefined) {
       this.voldemortObj.voldemortDraw();
-      // this.hechizoVolObj.hechizoVolDraw()
     }
 
     this.snichArr.forEach((cadaSnich) => {
@@ -244,16 +268,16 @@ class Game {
     if (this.hechizoVolArr.length !== 0) {
       this.hechizoVolArr.forEach((cadaHechizo) => {
         cadaHechizo.hechizoVolDraw();
-        
       });
     }
     if (this.hechizoHarryArr.length !== 0) {
       this.hechizoHarryArr.forEach((cadaHechizo) => {
         cadaHechizo.hechizoHarryDraw();
-        
       });
     }
-    // recursion (requestAnimationFrame)
+    this.drawScoreVoldemort();
+    this.drawScoreHarry();
+
     if (this.isGameOn === true) {
       requestAnimationFrame(this.bucleGame);
     }
