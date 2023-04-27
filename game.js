@@ -151,7 +151,7 @@ class Game {
     this.isGameOn = false;
     canvas.style.display = "none";
     newGameDOM.style.display = "flex";
-    h1DOM.style.display = "none";
+    
   };
 
   gameOver = () => {
