@@ -139,6 +139,25 @@ class Game {
       }
     });
   };
+  removeHechizosHarry = () => {
+    if (
+      this.hechizoHarryArr.length !== 0 &&
+      this.hechizoHarryArr[0].x + this.hechizoHarryArr[0].w < 0
+    ) {
+      this.hechizoHarryArr.splice(0, 1);
+      console.log(this.hechizoHarryArr);
+    }
+  };
+
+  removeHechizosVoldemort = () => {
+    if (
+      this.hechizoVolArr.length !== 0 &&
+      this.hechizoVolArr[0].x + this.hechizoVolArr[0].w < 0
+    ) {
+      this.hechizoVolArr.splice(0, 1);
+      console.log(this.hechizoVolArr);
+    }
+  };
 
   counterColision = () => {
     if (this.counterContraVoldemort <= 0) {
@@ -151,7 +170,6 @@ class Game {
     this.isGameOn = false;
     canvas.style.display = "none";
     newGameDOM.style.display = "flex";
-    
   };
 
   gameOver = () => {
@@ -171,8 +189,8 @@ class Game {
 
   removeDuendes = () => {
     if (
-      this.snichArr.length !== 0 &&
-      this.duendesArr.length.x + this.duendesArr.length.w < 0
+      this.duendesArr.length !== 0 &&
+      this.duendesArr[0].x + this.duendesArr[0].w < 0
     ) {
       this.duendesArr.splice(0, 1);
     }
@@ -252,6 +270,8 @@ class Game {
     this.colisionHarryHechizos();
     this.colisionVoldemortHechizos();
     this.counterColision();
+    this.removeHechizosHarry();
+    this.removeHechizosVoldemort();
 
     this.dibujarfondo();
     this.harryObj.harryDraw();
